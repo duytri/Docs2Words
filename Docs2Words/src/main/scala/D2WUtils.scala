@@ -2,32 +2,30 @@ package main.scala
 
 import scala.collection.mutable.ArrayBuffer
 import scala.collection.mutable.Map
+import java.io.File
+import java.io.BufferedWriter
+import java.io.FileWriter
 
 object D2WUtils {
-  def removeDotToGetWords(wordsTmpArray: Array[String]): ArrayBuffer[String] = {
-    if (wordsTmpArray(wordsTmpArray.length - 1).equals(".")) {
-      var result = new ArrayBuffer[String](wordsTmpArray.length - 1)
-      for (i <- 0 to (wordsTmpArray.length - 2)) {
-        result(i) = wordsTmpArray(i)
-      }
-      return result
-    }
-    var result = new ArrayBuffer[String](wordsTmpArray.length)
-    result.insertAll(0, wordsTmpArray)
-    return result
-  }
-
-  def addOrIgnore(eachWordSet: Map[String, Int], someWords: ArrayBuffer[String]): Unit = {
+  def removeSignToGetWords(wordsTmpArray: Array[String]): ArrayBuffer[String] = {
+    var result = new ArrayBuffer[String]
     val specialChars = Array((" "), ("."), (","), ("\t"), ("..."))
-    someWords.foreach { x =>
+    wordsTmpArray.foreach { x =>
       {
         if (!specialChars.contains(x)) {
           val y = x.toLowerCase()
-          if (!eachWordSet.contains(y))
-            eachWordSet += y -> 1
-          else eachWordSet.update(y, eachWordSet(y) + 1)
+          result += y
         }
       }
     }
+    result
+  }
+
+  def writeFile(content: String, outputDir: String, fileName: String): Unit = {
+    val file = new File(outputDir + fileName + ".txt")
+    val bw = new BufferedWriter(new FileWriter(file))
+    bw.flush()
+    bw.write(content)
+    bw.close()
   }
 }

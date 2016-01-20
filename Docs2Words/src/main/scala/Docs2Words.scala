@@ -9,6 +9,7 @@ import vn.hus.nlp.utils.FileIterator
 import vn.hus.nlp.utils.TextFileFilter
 import java.util.Properties
 import scala.collection.mutable.HashMap
+import scala.collection.mutable.ArrayBuffer
 
 object Docs2Words {
   def main(args: Array[String]): Unit = {
@@ -19,14 +20,15 @@ object Docs2Words {
     val currentDir = new File(".").getCanonicalPath
     val currentLibsDir = currentDir + File.separator + "libs"
 
-    val inputDirPath = currentDir + "/data/in"
+    val inputDirPath = args(0) //currentDir + "/data/in"
+    val outputDirPath = args(1)
     //val outputDirPath = currentDir + File.separator + "data" + File.separator + "out"
 
-    val input0 = inputDirPath + File.separator + "0"
-    val input1 = inputDirPath + File.separator + "1"
+    //val input0 = inputDirPath + File.separator + "0"
+    //val input1 = inputDirPath + File.separator + "1"
 
-    val inputDirFile0 = new File(input0)
-    val inputDirFile1 = new File(input1)
+    //val inputDirFile0 = new File(input0)
+    //val inputDirFile1 = new File(input1)
 
     val property = new Properties()
     property.setProperty("sentDetectionModel", currentLibsDir + File.separator + "models" + File.separator
@@ -50,27 +52,26 @@ object Docs2Words {
     tokenizer.turnOffSentenceDetection()
 
     //~~~~~~~~~~Get all input files~~~~~~~~~~
-    var inputFiles0 = FileIterator.listFiles(inputDirFile0, new TextFileFilter(TokenizerOptions.TEXT_FILE_EXTENSION))
-    var inputFiles1 = FileIterator.listFiles(inputDirFile1, new TextFileFilter(TokenizerOptions.TEXT_FILE_EXTENSION))
-    val inputFiles = inputFiles0 ++ inputFiles1
+    //var inputFiles0 = FileIterator.listFiles(inputDirFile0, new TextFileFilter(TokenizerOptions.TEXT_FILE_EXTENSION))
+    //var inputFiles1 = FileIterator.listFiles(inputDirFile1, new TextFileFilter(TokenizerOptions.TEXT_FILE_EXTENSION))
+    val inputFiles = FileIterator.listFiles(new File(inputDirPath), new TextFileFilter(TokenizerOptions.TEXT_FILE_EXTENSION)) //inputFiles0 ++ inputFiles1
     println("Tokenizing all files in the directory, please wait...")
     val startTime = System.currentTimeMillis()
 
-    var wordSetByFile = new Array[HashMap[String, Int]](inputFiles.length) // Map[word, frequency in document]
     //Foreach text file
     for (aFile <- inputFiles) {
       // get the simple name of the file
-      val input = aFile.getName()
+      val outputName = aFile.getName()
       // the output file have the same name with the automatic file
-      //val output = outputDirPath + File.separator + input
-      //println(aFile.getAbsolutePath() + "\n" + output)
+      var content = new ArrayBuffer[String]
       // tokenize the content of file
       val sentences = senDetector.detectSentences(aFile.getAbsolutePath())
       for (i <- 0 to sentences.length) {
         val words = tokenizer.tokenize(sentences(i))
         val wordsTmpArr = words(0).split(" ")
-        
+        content.appendAll(D2WUtils.removeSignToGetWords(wordsTmpArr))
       }
+      D2WUtils.writeFile(content.mkString("\n"), outputDirPath, outputName)
     }
 		val endTime = System.currentTimeMillis();
 		val duration = (endTime - startTime) / 1000;
