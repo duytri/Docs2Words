@@ -9,7 +9,7 @@ import java.io.FileWriter
 object D2WUtils {
   def removeSignToGetWords(wordsTmpArray: Array[String]): ArrayBuffer[String] = {
     var result = new ArrayBuffer[String]
-    val specialChars = Array((" "), ("."), (","), ("\t"), ("..."), ("#"), ("\u00a0"), ("("), (")"))
+    val specialChars = Array((" "), ("."), (","), ("\t"), ("..."), ("#"), ("\u00a0"), ("("), (")"), ("-"), (":"))
     wordsTmpArray.foreach { x =>
       {
         if (!specialChars.contains(x.trim)) {
