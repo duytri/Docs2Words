@@ -66,15 +66,15 @@ object Docs2Words {
       var content = new ArrayBuffer[String]
       // tokenize the content of file
       val sentences = senDetector.detectSentences(aFile.getAbsolutePath())
-      for (i <- 0 to sentences.length) {
+      for (i <- 0 to sentences.length - 1) {
         val words = tokenizer.tokenize(sentences(i))
         val wordsTmpArr = words(0).split(" ")
         content.appendAll(D2WUtils.removeSignToGetWords(wordsTmpArr))
       }
       D2WUtils.writeFile(content.mkString("\n"), outputDirPath, outputName)
     }
-		val endTime = System.currentTimeMillis();
-		val duration = (endTime - startTime) / 1000;
-		println("Tokenized " + nTokens + " words of " + inputFiles.length + " files in " + duration + " (s).\n");
+    val endTime = System.currentTimeMillis();
+    val duration = (endTime - startTime) / 1000;
+    println("Tokenized " + nTokens + " words of " + inputFiles.length + " files in " + duration + " (s).\n");
   }
 }

@@ -13,3 +13,4 @@ scalacOptions += "-deprecation"
 assemblyJarName in assembly := name.value+"-"+version.value+".jar"
 mainClass in assembly := Some("main.scala.Docs2Words")
 test in assembly := {}
+unmanagedResourceDirectories in Compile += { baseDirectory.value / "mod/models" }
