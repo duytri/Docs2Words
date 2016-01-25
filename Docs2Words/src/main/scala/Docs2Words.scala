@@ -18,7 +18,7 @@ object Docs2Words {
     val senDetector = SentenceDetectorFactory.create("vietnamese")
 
     val currentDir = new File(".").getCanonicalPath
-    val currentLibsDir = currentDir + File.separator + "libs"
+    val currentLibsDir = currentDir //+ File.separator + "libs"
 
     val inputDirPath = args(0) //currentDir + "/data/in"
     val outputDirPath = args(1)
@@ -30,7 +30,7 @@ object Docs2Words {
     //val inputDirFile0 = new File(input0)
     //val inputDirFile1 = new File(input1)
 
-    val property = new Properties()
+    val property = new Properties
     property.setProperty("sentDetectionModel", currentLibsDir + File.separator + "models" + File.separator
       + "sentDetection" + File.separator + "VietnameseSD.bin.gz");
     property.setProperty("lexiconDFA", currentLibsDir + File.separator + "models" + File.separator + "tokenization"
@@ -71,6 +71,7 @@ object Docs2Words {
         val wordsTmpArr = words(0).split(" ")
         content.appendAll(D2WUtils.removeSignToGetWords(wordsTmpArr))
       }
+      nTokens += content.length
       D2WUtils.writeFile(content.mkString("\n"), outputDirPath, outputName)
     }
     val endTime = System.currentTimeMillis();
