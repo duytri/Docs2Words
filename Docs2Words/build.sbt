@@ -3,7 +3,7 @@ import Keys._
 import sbtassembly.AssemblyPlugin.autoImport._
 
 name := "Docs2Words"
-version := "0.1-SNAPSHOT"
+version := "0.2-SNAPSHOT"
 organization := "uit.islab"
 scalaVersion := "2.10.5"
 

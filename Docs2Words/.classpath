@@ -4,13 +4,6 @@
 	<classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="/home/hduser/git/Docs2Words/Docs2Words/libs/vn.hus.nlp.tokenizer-4.1.1.jar"/>
-	<classpathentry kind="lib" path="/home/hduser/Downloads/vn.hus.nlp.tokenizer-4.1.1-bin/lib/opennlp-tools-1.4.3.jar"/>
-	<classpathentry kind="lib" path="/home/hduser/Downloads/vn.hus.nlp.tokenizer-4.1.1-bin/lib/vn.hus.nlp.sd-2.0.0.jar"/>
-	<classpathentry kind="lib" path="/home/hduser/Downloads/vn.hus.nlp.tokenizer-4.1.1-bin/lib/vn.hus.nlp.utils-1.0.0.jar"/>
-	<classpathentry kind="lib" path="/home/hduser/Downloads/vn.hus.nlp.tokenizer-4.1.1-bin/lib/maxent-2.5.2.jar"/>
-	<classpathentry kind="lib" path="/home/hduser/Downloads/vn.hus.nlp.tokenizer-4.1.1-bin/lib/commons-cli-1.2.jar"/>
-	<classpathentry kind="lib" path="/home/hduser/Downloads/vn.hus.nlp.tokenizer-4.1.1-bin/lib/vn.hus.nlp.fsm-1.0.0.jar"/>
-	<classpathentry kind="lib" path="/home/hduser/Downloads/vn.hus.nlp.tokenizer-4.1.1-bin/lib/junit.jar"/>
-	<classpathentry kind="lib" path="/home/hduser/Downloads/vn.hus.nlp.tokenizer-4.1.1-bin/lib/trove.jar"/>
+	<classpathentry kind="lib" path="/home/hduser/git/Docs2Words/Docs2Words/libs/jsoup-1.8.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

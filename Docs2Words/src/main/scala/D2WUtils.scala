@@ -7,12 +7,14 @@ import java.io.BufferedWriter
 import java.io.FileWriter
 
 object D2WUtils {
+  def isDigitsOrDot(x: String) = x.forall { y => (Character.isDigit(y) || y.equals('.') || y.equals(',')) }
+  
   def removeSignToGetWords(wordsTmpArray: Array[String]): ArrayBuffer[String] = {
     var result = new ArrayBuffer[String]
-    val specialChars = Array((" "), (";"), ("/"), ("."), (","), ("\""), ("\t"), ("#"), ("\u00a0"), ("("), (")"), ("["), ("]"), ("!"), ("?"), ("'"), (":"), ("&"), ("="), ("-"), ("<"), (">"),("–"), ("{"), ("}"), ("\\"), ("..."), ("*"), ("+"), ("$"), ("@"), ("\u00a9"), ("\u00ae"), ("”"), ("“"))
+    val specialChars = Array((" "), (";"), ("/"), ("."), (","), ("\""), ("\t"), ("#"), ("\u00a0"), ("("), (")"), ("["), ("]"), ("!"), ("?"), ("'"), (":"), ("&"), ("="), ("-"), ("<"), (">"),("–"), ("{"), ("}"), ("\\"), ("..."), ("*"), ("+"), ("$"), ("@"), ("\u00a9"), ("\u00ae"), ("”"), ("“"), ("_"))
     wordsTmpArray.foreach { x =>
       {
-        if (!specialChars.contains(x.trim) && !x.trim.equals("_")) {
+        if (!specialChars.contains(x.trim) && !isDigitsOrDot(x.trim)) {
           val y = x.toLowerCase().trim
           result += y
         }

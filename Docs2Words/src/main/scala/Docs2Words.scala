@@ -10,6 +10,7 @@ import vn.hus.nlp.utils.TextFileFilter
 import java.util.Properties
 import scala.collection.mutable.HashMap
 import scala.collection.mutable.ArrayBuffer
+import org.jsoup.Jsoup
 
 object Docs2Words {
   def main(args: Array[String]): Unit = {
@@ -67,12 +68,14 @@ object Docs2Words {
       // tokenize the content of file
       val sentences = senDetector.detectSentences(aFile.getAbsolutePath())
       for (i <- 0 to sentences.length - 1) {
-        val words = tokenizer.tokenize(sentences(i))
+        val oneSentence = Jsoup.parse(sentences(i)).text() // Remove HTML tags
+        val words = tokenizer.tokenize(oneSentence)
         val wordsTmpArr = words(0).split(" ")
         content.appendAll(D2WUtils.removeSignToGetWords(wordsTmpArr))
       }
       nTokens += content.length
       D2WUtils.writeFile(content.mkString("\n"), outputDirPath, outputName)
+      println("Writed: " + outputName)
     }
     val endTime = System.currentTimeMillis();
     val duration = (endTime - startTime) / 1000;
